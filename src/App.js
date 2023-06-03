@@ -9,8 +9,8 @@ function App() {
   const dispatch = useDispatch()
   console.log(usersData)
   const [data, setData] = useState({
-    title:"",
-    author:"author"
+    name:"gavo",
+    title:"theme"
   })
   const handleSubmit = (e) => {
     e.preventDefault()

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { async } from "q";
-const URL = 'http://localhost:3000/posts'
+const URL = 'https://oshxonabynapaautomativeuz.onrender.com/posts'
 export const addPost = createAsyncThunk('add/post', async(payload)=>{
     return axios({
         method:"POST",
