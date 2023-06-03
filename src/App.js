@@ -24,7 +24,7 @@ function App() {
         <form onSubmit={handleSubmit}>
           <input className='form-control' type="text" placeholder='Enter your name' onChange={(e) => setData({...data, name:e.target.value})} />
           <br/>
-          <button type='submit' className='btn btn-primary'>Addd</button>
+          {/* <button type='submit' className='btn btn-primary'>Addd</button> */}
         </form>
       </div>
     </div>
