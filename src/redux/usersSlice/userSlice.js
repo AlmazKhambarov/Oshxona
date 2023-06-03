@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
-    error: null
+    error: null,
+    onuserAdded: ""
 }
 const userSlice = createSlice({
     name: "users",
@@ -13,12 +14,25 @@ const userSlice = createSlice({
         builder
             .addCase(addPost.pending, (state, action) => {
                 state.loading = true;
+                state.onuserAdded = "pending"
             })
-            .addCase(addPost.fulfilled, (state, action)=>{
+            .addCase(addPost.fulfilled, (state, action) => {
+                state.loading = false;
+                state.onuserAdded = 'fullfiled'
+            })
+            .addCase(addPost.rejected, (state, action) => {
+                state.error = action.error.message
+            })
+        ///////////get users////////
+        builder
+            .addCase(getAllUsers.pending, (state, action) => {
                 state.loading = true;
-                state.usersData = action.payload
             })
-            .addCase(addPost.rejected, (state, action)=>{
+            .addCase(getAllUsers.fulfilled, (state, action) => {
+                state.loading = false;
+                state.usersData = action.payload;
+            })
+            .addCase(getAllUsers.rejected, (state, action) => {
                 state.error = action.error.message
             })
     }

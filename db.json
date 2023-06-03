@@ -3,28 +3,52 @@
     {
       "id": 1,
       "title": "json-server",
+      "author": "coddingleeps"
+    },
+    {
+      "id": 2,
+      "title": "json-server",
+      "author": "w3School"
+    },
+    {
+      "id": 3,
+      "title": "serverless",
+      "author": "leedcode"
+    },
+    {
+      "id": 4,
+      "title": "server",
       "author": "typicode"
     },
     {
-      "id": 2
+      "title": "earth ",
+      "author": "author",
+      "id": 5
     },
     {
-      "kambarrov": "",
-      "id": 3
+      "title": "enter my bnane",
+      "author": "author",
+      "id": 6
     },
     {
-      "name": "almaz",
-      "id": 4
-    }
-  ],
-  "comments": [
+      "title": "hello",
+      "author": "author",
+      "id": 7
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "jknkbkjkjj",
+      "author": "author",
+      "id": 8
+    },
+    {
+      "title": "wertyu",
+      "author": "author",
+      "id": 9
+    },
+    {
+      "title": "hello",
+      "author": "author",
+      "id": 10
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
