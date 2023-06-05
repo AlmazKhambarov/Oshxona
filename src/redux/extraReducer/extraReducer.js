@@ -3,7 +3,7 @@ import axios from 'axios'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { async } from "q";
 import { auth } from "../../Api/firebase";
-const URL = 'https://oshxonabynapaautomativeuz.onrender.com/posts'
+const URL = 'https://oshxonabynapaautomativeuz.onrender.com/allfood'
 export const addPost = createAsyncThunk('add/post', async(payload)=>{
     return axios({
         method:"POST",

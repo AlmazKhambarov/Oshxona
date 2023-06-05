@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { auth } from "../../Api/firebase";
 import { useDispatch } from "react-redux";
 import { createUserAndProfileAsync } from "../../redux/extraReducer/extraReducer";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -17,8 +18,8 @@ const Register = () => {
     dispatch(createUserAndProfileAsync({email, password, userName}))
   };
   return (
-    <div>
-      <form onSubmit={handleRegister}>
+    <div className="formWrapper">
+      <form onSubmit={handleRegister} className="form__group">
         <input
           type="text"
           placeholder="UserName"
@@ -34,7 +35,8 @@ const Register = () => {
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button className="btn btn-primary" type="submit">Submit</button>
+        <p>Do you have an account <Link to={'/'}>Login</Link></p>
       </form>
     </div>
   );

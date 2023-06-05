@@ -10,11 +10,11 @@ const Login = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const email = e.target[0].value;
+        const email  = e.target[0].value;
         const password = e.target[1].value;
     
         try {
-          await signInWithEmailAndPassword(auth, email, password);
+          await signInWithEmailAndPassword(auth, email + '@gmail.com', password);
           navigate("/")
         } catch (err) {
           setErr(true);
@@ -23,7 +23,7 @@ const Login = () => {
   return (
     <div className="formWrapper">
       <form onSubmit={handleSubmit} className="form__group">
-        <input type="email" placeholder="email" />
+        <input type="text" placeholder="email" />
         <input type="password" placeholder="password" />
         <div >
         <button className="btn btn-primary">Sign in</button>
