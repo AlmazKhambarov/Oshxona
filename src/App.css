@@ -1,4 +1,9 @@
-.form_main{
-  margin: 0 auto;
-  max-width:30vw;
+.container{
+  width:90vw;
+  margin:auto
+}
+@media screen and(max-width:390px) {
+  .container{
+    width: 100vw;
+  }
 }

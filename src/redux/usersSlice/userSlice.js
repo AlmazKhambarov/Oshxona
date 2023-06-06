@@ -5,12 +5,16 @@ const initialState = {
     loading: false,
     error: null,
     onuserAdded: "",
-    deleteAction:''
+    deleteAction: ''
 }
 const userSlice = createSlice({
     name: "users",
     initialState,
-    reducers: {},
+    reducers: {
+        handleDeleteFood: (state, action) => {
+            state.usersData = state.usersData.filter(el =>el.id !== action.payload)
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(addPost.pending, (state, action) => {
@@ -38,18 +42,18 @@ const userSlice = createSlice({
             })
         /////////delete method/////
         builder
-        .addCase(deleteItemId.pending, (state)=>{
-            state.loading = true;
-            state.deleteAction = 'pending delete'
-        })
-        .addCase(deleteItemId.fulfilled, (state, action)=>{
-            state.loading = false;
-            state.deleteAction = 'deleted Succsess'
-        })
-        .addCase(deleteItemId.rejected, (state, action)=>{
-            state.error = action.error.message
-        })
+            .addCase(deleteItemId.pending, (state) => {
+                state.loading = true;
+                state.deleteAction = 'pending delete'
+            })
+            .addCase(deleteItemId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.deleteAction = 'deleted Succsess'
+            })
+            .addCase(deleteItemId.rejected, (state, action) => {
+                state.error = action.error.message
+            })
     }
 })
-export const { } = userSlice.actions
+export const { handleDeleteFood} = userSlice.actions
 export default userSlice.reducer

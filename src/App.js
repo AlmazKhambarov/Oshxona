@@ -1,9 +1,10 @@
 import React from "react";
 import Router from "./Routers/Router";
+import './App.css'
 function App() {
 
   return (
-    <div>
+    <div className="container">
       <Router/>
     </div>
   );
