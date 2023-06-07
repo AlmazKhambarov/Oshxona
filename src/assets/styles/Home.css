@@ -48,6 +48,7 @@ span{
     display: flex;
     align-items: center;
     justify-content: end;
+    margin: 2px 0px;
 }
 .logoutBtn{
     color:#f1f1f1;

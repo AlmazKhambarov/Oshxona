@@ -25,6 +25,7 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="form__group">
         <input type="text" placeholder="email" />
         <input type="password" placeholder="password" />
+        
         <div >
         <button className="btn btn-primary">Sign in</button>
         {err && <span>Something went wrong</span>}

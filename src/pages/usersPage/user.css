@@ -1,0 +1,14 @@
+.visible {
+    transform: translateY(-20px);
+    transition: .5s;
+    opacity: 0;
+    color: #fff;
+}
+
+.food__card.active .visible {
+    transform: translateY(0);
+    color: red !important;
+    transition: .2s;
+    opacity: 1;
+
+}
