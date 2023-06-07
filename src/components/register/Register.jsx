@@ -6,16 +6,15 @@ import { createUserAndProfileAsync } from "../../redux/extraReducer/extraReducer
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('')
-  
-  const dispatch = useDispatch()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
 
+  const dispatch = useDispatch();
 
   const handleRegister = (e) => {
-    e.preventDefault()
-    dispatch(createUserAndProfileAsync({email, password, userName}))
+    e.preventDefault();
+    dispatch(createUserAndProfileAsync({ email, password, userName }));
   };
   return (
     <div className="formWrapper">
@@ -28,15 +27,19 @@ const Register = () => {
         <input
           type="email"
           placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value.toLowerCase())}
         />
         <input
           type="password"
           placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value.toLowerCase())}
         />
-        <button className="btn btn-primary" type="submit">Submit</button>
-        <p>Do you have an account <Link to={'/'}>Login</Link></p>
+        <button className="btn btn-primary" type="submit">
+          Submit
+        </button>
+        <p>
+          Do you have an account <Link to={"/"}>Login</Link>
+        </p>
       </form>
     </div>
   );

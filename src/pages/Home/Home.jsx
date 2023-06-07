@@ -83,13 +83,6 @@ const Home = ({}) => {
         <h1>Загрузка...</h1>
       ) : (
         <div className="home_main_container">
-          {user ? (
-            user.email === "admin@gmail.com" ? (
-              <button className="addProductButton btn btn-primary">
-                добавить еду
-              </button>
-            ) : null
-          ) : null}
           <h1><Link to={'/userpage'}>Menu({foodsData?.length})</Link></h1>
           <hr style={{ color: "white" }} />
           <div className="food">

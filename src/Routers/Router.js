@@ -24,6 +24,7 @@ const Router = () => {
         {user.email === 'admin@gmail.com' ? <Home /> : <UsersPage user={user} />}
       </>} />
       <Route path='/userpage' element={user ? <UsersPage user={user}/> : <Login />} />
+      <Route path='/register' element={user?(user.emai==='admin@gmail.com'?<Home/>:<UsersPage/>):<Register/>}/>
     </Routes>
   )
 }
