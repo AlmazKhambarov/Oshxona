@@ -79,7 +79,7 @@ const Home = ({}) => {
   return (
     <>
       {loading ? (
-        <h1>loading...</h1>
+        <h1>Загрузка...</h1>
       ) : (
         <div className="home_main_container">
           {user ? (

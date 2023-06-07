@@ -21,7 +21,7 @@ const UsersPage = ({ user }) => {
   return (
     <>
       {loading ? (
-        <h1>Loading...</h1>
+        <h1>Загрузка...</h1>
       ) : (
         <>
         <div className="logout">
