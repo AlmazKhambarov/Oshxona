@@ -19,7 +19,9 @@ export const getAllUsers = createAsyncThunk('get/users', async () => {
 export const deleteItemId = createAsyncThunk('delete/method', async (id) => {
 	return await axios.delete(`${BASE_URL}/allfood/${id}`).then(res => res.data)
 });
-
+export const deleteUsersfood = createAsyncThunk('delete', async (id) => {
+	return await axios.delete(`${BASE_URL}/filtred/${id}`).then(res => res.data)
+});
 export const postFoodforUser = createAsyncThunk('post/foods', async (paylaod) => {
 	return axios({
 		method: 'POST',

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
@@ -70,7 +70,19 @@ const userSlice = createSlice({
             .addCase(deleteItemId.rejected, (state, action) => {
                 state.error = action.error.message
             })
-
+            ////////// delete users food///////////
+            builder
+            .addCase(deleteUsersfood.pending, (state) => {
+                state.loading = true;
+                state.deleteAction = 'pending delete'
+            })
+            .addCase(deleteUsersfood.fulfilled, (state, action) => {
+                state.loading = false;
+                state.deleteAction = 'deleted Succsess'
+            })
+            .addCase(deleteUsersfood.rejected, (state, action) => {
+                state.error = action.error.message
+            })
         // ~~~~~~~~~~~~getUsersFood~~~~~~~~~~~~
         builder
             .addCase(getUsersFoodData.pending, state => {

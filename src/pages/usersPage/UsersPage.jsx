@@ -2,18 +2,18 @@ import React, { useEffect } from "react";
 import { auth } from "../../Api/firebase";
 import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersFoodData } from "../../redux/extraReducer/extraReducer";
+import { deleteUsersfood, getUsersFoodData } from "../../redux/extraReducer/extraReducer";
 import { useNavigate } from "react-router-dom";
 
 const UsersPage = ({ user }) => {
   const dispatch = useDispatch();
-  const { loading, foodsData, postSuccsess } = useSelector(
+  const { loading, foodsData, postSuccsess, deleteAction} = useSelector(
     (state) => state.users
   );
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getUsersFoodData());
-  }, [postSuccsess]);
+  }, [postSuccsess, deleteAction]);
 
   const handelLogout = () => {
     auth.signOut();
@@ -51,7 +51,7 @@ const UsersPage = ({ user }) => {
                       <div>
                         <button
                           className="addProductButton btn btn-danger"
-                          onClick={() => {}}
+                          onClick={() => dispatch(deleteUsersfood(food.id))}
                         >
                           Удалить
                         </button>

@@ -4,6 +4,7 @@ import AdminPanel from "../AdminPanel/AdminPanel";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllUsers,
+  getUsersFoodData,
   postFoodforUser,
 } from "../../redux/extraReducer/extraReducer";
 import "../../assets/styles/Home.css";
@@ -14,7 +15,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({}) => {
-  const { usersData, loading, postSuccsess } = useSelector(
+  const { usersData, loading, postSuccsess, foodsData} = useSelector(
     (state) => state.users
   );
 
@@ -38,7 +39,7 @@ const Home = ({}) => {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => setUser(user));
-    console.log(user);
+    dispatch(getUsersFoodData());
   }, []);
 
   const getFoodData = (food) => {
@@ -89,7 +90,7 @@ const Home = ({}) => {
               </button>
             ) : null
           ) : null}
-          <h1><Link to={'/userpage'}>Menu</Link></h1>
+          <h1><Link to={'/userpage'}>Menu({foodsData?.length})</Link></h1>
           <hr style={{ color: "white" }} />
           <div className="food">
             {usersData?.map((food) => (
