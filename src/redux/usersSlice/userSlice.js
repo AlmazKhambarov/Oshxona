@@ -1,25 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost, getAllUsers, deleteItemId } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
     error: null,
     onuserAdded: "",
-    deleteAction: ''
+    deleteAction: '',
+    postSuccsess: null,
+    foodsData: [],
 }
 const userSlice = createSlice({
     name: "users",
     initialState,
     reducers: {
         handleDeleteFood: (state, action) => {
-            state.usersData = state.usersData.filter(el =>el.id !== action.payload)
+            state.usersData = state.usersData.filter(el => el.id !== action.payload)
+        },
+        pushToAllmenuList: (state, action) => {
+            state.usersData.push(action.payload)
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(addPost.pending, (state, action) => {
                 state.loading = true;
-                state.onuserAdded = "pending"
+                state.onuserAdded = "pending";
             })
             .addCase(addPost.fulfilled, (state, action) => {
                 state.loading = false;
@@ -40,6 +45,18 @@ const userSlice = createSlice({
             .addCase(getAllUsers.rejected, (state, action) => {
                 state.error = action.error.message
             })
+        ////////postFoods//////////
+        builder
+            .addCase(postFoodforUser.pending, (state, action) => {
+                state.loading = true
+            })
+            .addCase(postFoodforUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.postSuccsess = true
+            })
+            .addCase(postFoodforUser.rejected, (state, action) => {
+                state.error = action.error.message
+            })
         /////////delete method/////
         builder
             .addCase(deleteItemId.pending, (state) => {
@@ -53,7 +70,20 @@ const userSlice = createSlice({
             .addCase(deleteItemId.rejected, (state, action) => {
                 state.error = action.error.message
             })
+
+        // ~~~~~~~~~~~~getUsersFood~~~~~~~~~~~~
+        builder
+            .addCase(getUsersFoodData.pending, state => {
+                state.loading = true;
+            })
+            .addCase(getUsersFoodData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.foodsData = action.payload
+            })
+            .addCase(getUsersFoodData.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
     }
 })
-export const { handleDeleteFood} = userSlice.actions
+export const { handleDeleteFood, pushToAllmenuList } = userSlice.actions
 export default userSlice.reducer

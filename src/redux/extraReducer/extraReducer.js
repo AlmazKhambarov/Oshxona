@@ -28,6 +28,10 @@ export const postFoodforUser = createAsyncThunk('post/foods', async (paylaod) =>
 	}).then(res => res.data)
 })
 
+export const getUsersFoodData = createAsyncThunk('get/userFood', async () => {
+	return await axios.get(`${BASE_URL}/filtred`).then(res => res.data)
+})
+
 export const createUserAndProfileAsync = createAsyncThunk(
 	"user/createUserAndProfile",
 	async ({ email, password, userName }, thunkAPI) => {
