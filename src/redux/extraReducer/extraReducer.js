@@ -2,8 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { async } from "q";
-import { auth } from "../../Api/firebase";
-const BASE_URL = 'https://oshxonabynapaautomativeuz.onrender.com'
+import { auth, db, firestore } from "../../Api/firebase";
+const BASE_URL = 'http://localhost:3000'
+
 export const addPost = createAsyncThunk('add/post', async (payload) => {
 	return axios({
 		method: "POST",
@@ -46,3 +47,34 @@ export const createUserAndProfileAsync = createAsyncThunk(
 		}
 	}
 );
+
+
+
+
+export const createPost = createAsyncThunk(
+	'posts/createPost',
+	async (postData, thunkAPI) => {
+	  try {
+		const docRef = await firestore.collection('filtred').add(postData);
+		return docRef.id;
+	  } catch (error) {
+		return thunkAPI.rejectWithValue(error.message);
+	  }
+	}
+  );
+
+  
+export const fetchPosts = createAsyncThunk(
+	'posts/fetchPosts',
+	async (_, thunkAPI) => {
+	  try {
+		// Make a GET request to Firestore
+		const snapshot = await firestore.collection('filtred').get();
+		const posts = snapshot.docs.map((doc) => doc.data());
+		return posts;
+	  } catch (error) {
+		return thunkAPI.rejectWithValue(error.message);
+	  }
+	}
+  );
+  

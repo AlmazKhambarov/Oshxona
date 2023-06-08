@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUsersfood,
+  fetchPosts,
   getUsersFoodData,
 } from "../../redux/extraReducer/extraReducer";
 import { useNavigate } from "react-router-dom";

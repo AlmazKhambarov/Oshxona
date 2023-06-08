@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood, createPost, fetchPosts } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
@@ -29,7 +29,7 @@ const userSlice = createSlice({
             .addCase(addPost.fulfilled, (state, action) => {
                 state.loading = false;
                 state.onuserAdded = 'fullfiled'
-            })
+            })  
             .addCase(addPost.rejected, (state, action) => {
                 state.error = action.error.message
             })
@@ -93,6 +93,31 @@ const userSlice = createSlice({
                 state.foodsData = action.payload
             })
             .addCase(getUsersFoodData.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
+            ///////// firebase post  test /////////
+            builder
+            .addCase(createPost.pending, (state)=>{
+                state.loading = true;
+            })
+            .addCase(createPost.fulfilled, (state, action)=>{
+                state.loading=  false;
+                console.log(action.payload)
+            })
+            .addCase(createPost.rejected, (state, action)=>{
+                state.error = action.error.message
+            })
+            //////////// get from firebase test///////
+            builder
+            .addCase(fetchPosts.pending,(state)=>{
+                state.loading = true;
+            })
+            .addCase(fetchPosts.fulfilled, (state, action)=>{
+                state.loading = false;
+                state.foodsData = action.payload
+                console.log('pen')
+            })
+            .addCase(fetchPosts.rejected, (state, action)=>{
                 state.error = action.error.message;
             })
     }
