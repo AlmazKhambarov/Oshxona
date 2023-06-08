@@ -3,7 +3,7 @@ import axios from 'axios'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { async } from "q";
 import { auth, db, firestore } from "../../Api/firebase";
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:3001'
 
 export const addPost = createAsyncThunk('add/post', async (payload) => {
 	return axios({
