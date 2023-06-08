@@ -3,6 +3,11 @@ import {
 	addPost,
 	getAllUsers,
 	deleteItemId,
+	postFoodforUser,
+	getUsersFoodData,
+	deleteUsersfood,
+	createPost,
+	fetchPosts,
 } from "../extraReducer/extraReducer";
 const initialState = {
 	usersData: [],
@@ -10,6 +15,8 @@ const initialState = {
 	error: null,
 	onuserAdded: "",
 	deleteAction: "",
+	postSuccsess: null,
+	foodsData: [],
 };
 const userSlice = createSlice({
 	name: "users",
@@ -20,8 +27,10 @@ const userSlice = createSlice({
 				(el) => el.id !== action.payload
 			);
 		},
+		pushToAllmenuList: (state, action) => {
+			state.usersData.push(action.payload);
+		},
 	},
-
 	extraReducers: (builder) => {
 		builder
 			.addCase(addPost.pending, (state, action) => {
@@ -47,6 +56,18 @@ const userSlice = createSlice({
 			.addCase(getAllUsers.rejected, (state, action) => {
 				state.error = action.error.message;
 			});
+		////////postFoods//////////
+		builder
+			.addCase(postFoodforUser.pending, (state, action) => {
+				state.loading = true;
+			})
+			.addCase(postFoodforUser.fulfilled, (state, action) => {
+				state.loading = false;
+				state.postSuccsess = true;
+			})
+			.addCase(postFoodforUser.rejected, (state, action) => {
+				state.error = action.error.message;
+			});
 		/////////delete method/////
 		builder
 			.addCase(deleteItemId.pending, (state) => {
@@ -60,7 +81,57 @@ const userSlice = createSlice({
 			.addCase(deleteItemId.rejected, (state, action) => {
 				state.error = action.error.message;
 			});
+		////////// delete users food///////////
+		builder
+			.addCase(deleteUsersfood.pending, (state) => {
+				state.loading = true;
+				state.deleteAction = "pending delete";
+			})
+			.addCase(deleteUsersfood.fulfilled, (state, action) => {
+				state.loading = false;
+				state.deleteAction = "deleted Succsess";
+			})
+			.addCase(deleteUsersfood.rejected, (state, action) => {
+				state.error = action.error.message;
+			});
+		// ~~~~~~~~~~~~getUsersFood~~~~~~~~~~~~
+		builder
+			.addCase(getUsersFoodData.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(getUsersFoodData.fulfilled, (state, action) => {
+				state.loading = false;
+				state.foodsData = action.payload;
+			})
+			.addCase(getUsersFoodData.rejected, (state, action) => {
+				state.error = action.error.message;
+			});
+		///////// firebase post  test /////////
+		builder
+			.addCase(createPost.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(createPost.fulfilled, (state, action) => {
+				state.loading = false;
+				console.log(action.payload);
+			})
+			.addCase(createPost.rejected, (state, action) => {
+				state.error = action.error.message;
+			});
+		//////////// get from firebase test///////
+		builder
+			.addCase(fetchPosts.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(fetchPosts.fulfilled, (state, action) => {
+				state.loading = false;
+				state.foodsData = action.payload;
+				console.log("pen");
+			})
+			.addCase(fetchPosts.rejected, (state, action) => {
+				state.error = action.error.message;
+			});
 	},
 });
-export const { handleDeleteFood } = userSlice.actions;
+export const { handleDeleteFood, pushToAllmenuList } = userSlice.actions;
 export default userSlice.reducer;

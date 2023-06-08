@@ -6,6 +6,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyChP1q2fHyGITSMZx86KODRpBxTXlS23fY",
     authDomain: "oshxona-project.firebaseapp.com",
+    databaseURL: "https://oshxona-project-default-rtdb.firebaseio.com",
     projectId: "oshxona-project",
     storageBucket: "oshxona-project.appspot.com",
     messagingSenderId: "405762888921",
@@ -17,4 +18,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const storage = getStorage();
-export const db = getFirestore()
+export const firestore = getFirestore(app);
