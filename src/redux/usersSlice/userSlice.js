@@ -96,30 +96,6 @@ const userSlice = createSlice({
                 state.error = action.error.message;
             })
             ///////// firebase post  test /////////
-            builder
-            .addCase(createPost.pending, (state)=>{
-                state.loading = true;
-            })
-            .addCase(createPost.fulfilled, (state, action)=>{
-                state.loading=  false;
-                console.log(action.payload)
-            })
-            .addCase(createPost.rejected, (state, action)=>{
-                state.error = action.error.message
-            })
-            //////////// get from firebase test///////
-            builder
-            .addCase(fetchPosts.pending,(state)=>{
-                state.loading = true;
-            })
-            .addCase(fetchPosts.fulfilled, (state, action)=>{
-                state.loading = false;
-                state.foodsData = action.payload
-                console.log('pen')
-            })
-            .addCase(fetchPosts.rejected, (state, action)=>{
-                state.error = action.error.message;
-            })
     }
 })
 export const { handleDeleteFood, pushToAllmenuList } = userSlice.actions
