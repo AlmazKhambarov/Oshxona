@@ -3,7 +3,7 @@ import axios from 'axios'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { async } from "q";
 import { auth, db, firestore } from "../../Api/firebase";
-const BASE_URL = 'https://oshxonabynapaautomativeuz.onrender.com'
+const BASE_URL = 'https://test-api-oshxona.onrender.com'
 const USERS_API = 'https://647b1835d2e5b6101db0d8df.mockapi.io/oshxonabynapaautomativeuz/foodsapi'
 export const addPost = createAsyncThunk('add/post', async (payload) => {
 	return axios({

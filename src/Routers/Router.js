@@ -11,7 +11,6 @@ const Router = () => {
   auth.onAuthStateChanged((user) => {
     setUser(user)
   })
-  console.log(user)
   const userRouter = [
     { path: '/userpage', el: <UsersPage />, id: 1 }]
   const adminRouter = [
