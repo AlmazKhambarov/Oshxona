@@ -50,6 +50,7 @@ const UsersPage = ({ user }) => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  console.log(userOrderfood)
   return (
     <>
       {loading ? (
@@ -150,9 +151,18 @@ const UsersPage = ({ user }) => {
                           <span className="userName">{user?(user.displayName):null}</span>
                           </div>
                           <hr/>
+                          <div className="foodss">
+                            {userOrderfood?.map((food)=>(
+                              <div className="food__menu">
+                                <img src={food.image} alt="" />
+                                <span>{food.price}</span>
+                              </div>
+                            ))}
+                          </div>
                           <div className="main">
                             <button className="btn btn-primary">Otpravit</button>
                           </div>
+
                         </Box>
                       </Modal>
                     </div>
