@@ -3,13 +3,13 @@ import { auth } from "../../Api/firebase";
 import { signOut } from "firebase/auth";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUsersfood,
   fetchPosts,
   getUsersFoodData,
+  usersOrder,
 } from "../../redux/extraReducer/extraReducer";
 import { useNavigate } from "react-router-dom";
 import "./user.css";
@@ -24,16 +24,16 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p:1
+  p: 1,
   // p: 4,
 };
 const UsersPage = ({ user }) => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(0);
   const dispatch = useDispatch();
-  const { loading, foodsData, postSuccsess, deleteAction } = useSelector(
-    (state) => state.users
-  );
+  // const [data, setData] = useState()
+  const { loading, foodsData, postSuccsess, deleteAction, loadingOrder } =
+    useSelector((state) => state.users);
   const [userOrderfood, setUserOrderfood] = useState([]);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -41,16 +41,45 @@ const UsersPage = ({ user }) => {
   }, [postSuccsess, deleteAction]);
 
   const userOrder = (data) => {
+    console.log(data);
     setUserOrderfood((prev) => [...prev, data]);
   };
-  const finalySubmitUserOrderFood = () => {};
+
   const handelLogout = () => {
     auth.signOut();
   };
 
+  const uniqueIds = new Set();
+  const updatedArray = userOrderfood?.filter((obj) => {
+    if (!uniqueIds.has(obj.id)) {
+      uniqueIds.add(obj.id);
+      return true;
+    }
+    return false;
+  });
+
+  const finalySubmitUserOrderFood = () => {
+    const res = [];
+    var data = updatedArray?.map((el) => {
+      let obj = {
+        name: el.name,
+        user: user.displayName,
+        price: el.price,
+        loading: false,
+      };
+      dispatch(usersOrder(obj));
+    });
+  };
+  useEffect(() => {
+    if (loadingOrder) {
+      setOpen(false);
+      setUserOrderfood([]);
+    }
+  }, [loadingOrder]);
   const handleOpen = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
-  console.log(userOrderfood)
+  // chrome.runtime.sendMessage({ message: "Hello from Chrome extension" });
   return (
     <>
       {loading ? (
@@ -123,9 +152,9 @@ const UsersPage = ({ user }) => {
             ))}
           </div>
           {user ? (
-            user.email !== "almaz@gmail.com" ? null : (
+            user.email !== "admin@gmail.com" ? (
               <>
-                {userOrderfood.length > 0 ? (
+                {updatedArray.length > 0 ? (
                   <>
                     <div className="seeOrder__container">
                       <button onClick={handleOpen}>Moy Zakaz</button>
@@ -136,40 +165,65 @@ const UsersPage = ({ user }) => {
                         aria-describedby="modal-modal-description"
                       >
                         <Box sx={style}>
-                          <div style={{display:"flex", justifyContent:"space-between"}}>
-                          <Button
-                            onClick={handleClose}
+                          <div
                             style={{
-                              color: "red",
-                              fontSize: "25px",
-                              border: "1px solid",
-                              width: "",
+                              display: "flex",
+                              justifyContent: "space-between",
                             }}
                           >
-                            Закрыть
-                          </Button>
-                          <span className="userName">{user?(user.displayName):null}</span>
+                            <Button
+                              onClick={handleClose}
+                              style={{
+                                color: "red",
+                                fontSize: "25px",
+                                border: "1px solid",
+                                width: "",
+                              }}
+                            >
+                              Закрыть
+                            </Button>
+                            <span className="userName">
+                              {user ? user.displayName : null}
+                            </span>
                           </div>
-                          <hr/>
+                          <hr />
                           <div className="foodss">
-                            {userOrderfood?.map((food)=>(
-                              <div className="food__menu">
-                                <img src={food.image} alt="" />
-                                <span>{food.price}</span>
+                            {updatedArray?.map((food) => (
+                              <div className="food__cards">
+                                <div className="food__menu">
+                                  <img src={food.image} alt="" />
+                                </div>
+                                <div className="food__text">
+                                  <span>{food.name}</span>
+                                  <span>{food.price}.000 сум</span>
+                                </div>
                               </div>
                             ))}
                           </div>
                           <div className="main">
-                            <button className="btn btn-primary">Otpravit</button>
+                            {loadingOrder === "pending" ? (
+                              <button
+                                className="btn btn-primary"
+                                onClick={finalySubmitUserOrderFood}
+                              >
+                                загрузка
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-primary"
+                                onClick={finalySubmitUserOrderFood}
+                              >
+                                Zakazat
+                              </button>
+                            )}
                           </div>
-
                         </Box>
                       </Modal>
                     </div>
                   </>
                 ) : null}
               </>
-            )
+            ) : null
           ) : null}
         </>
       )}

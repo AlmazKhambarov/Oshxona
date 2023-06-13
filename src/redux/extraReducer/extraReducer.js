@@ -3,8 +3,10 @@ import axios from 'axios'
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { async } from "q";
 import { auth, db, firestore } from "../../Api/firebase";
+import { EggTwoTone } from "@mui/icons-material";
 const BASE_URL = 'https://test-api-oshxona.onrender.com'
 const USERS_API = 'https://647b1835d2e5b6101db0d8df.mockapi.io/oshxonabynapaautomativeuz/foodsapi'
+const USERSORDER = 'https://641d66581a68dc9e461dd276.mockapi.io/usersorderapi'
 export const addPost = createAsyncThunk('add/post', async (payload) => {
 	return axios({
 		method: "POST",
@@ -34,7 +36,13 @@ export const postFoodforUser = createAsyncThunk('post/foods', async (paylaod) =>
 export const getUsersFoodData = createAsyncThunk('get/userFood', async () => {
 	return await axios.get(`${USERS_API}`).then(res => res.data)
 })
-
+export const usersOrder = createAsyncThunk('users/orders', async (payload) => {
+	return axios({
+		method: "POST",
+		url: USERSORDER,
+		data: payload,
+	}).then(res => res.data)
+})
 export const createUserAndProfileAsync = createAsyncThunk(
 	"user/createUserAndProfile",
 	async ({ email, password, userName }, thunkAPI) => {

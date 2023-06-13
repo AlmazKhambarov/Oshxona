@@ -56,31 +56,61 @@
     bottom: 0px;
     width: 85vw
 }
-.seeOrder__container button{
+
+.seeOrder__container button {
     padding: 7px;
     width: 100%;
     font-size: 24px;
 }
-    
-.main{
-position: absolute;
-bottom: 0px;
-width: 100%;
+
+.main {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
-.main button{
+
+.main button {
     font-size: 23px;
-    width:96%;
+    width: 96%;
 }
-.userName{
-    color:#1f1f1f;
+
+.userName {
+    color: #1f1f1f;
     font-size: 25px;
     border: 1px solid rgb(99, 88, 88);
-    border-radius:10px ;
+    border-radius: 10px;
     padding: 5px;
 }
-.food__menu{
+
+.foods_main {
+    display: block;
+}
+
+.food__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* gap:20px */
+}
+
+.food__menu {
+    width: 100%;
+
+    /* width: 200px; */
 
 }
-.food__menu img{
-    width: 25%;
+
+.food__menu img {
+    width: 100%;
+    height: 100%;
+}
+
+.food__text {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.food__text span {
+    color: #1f1f1f;
+    font-size: 23px;
 }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood, createPost, fetchPosts } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood, createPost, fetchPosts, usersOrder } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
@@ -8,6 +8,7 @@ const initialState = {
     deleteAction: '',
     postSuccsess: null,
     foodsData: [],
+    loadingOrder:null
 }
 const userSlice = createSlice({
     name: "users",
@@ -29,7 +30,7 @@ const userSlice = createSlice({
             .addCase(addPost.fulfilled, (state, action) => {
                 state.loading = false;
                 state.onuserAdded = 'fullfiled'
-            })  
+            })
             .addCase(addPost.rejected, (state, action) => {
                 state.error = action.error.message
             })
@@ -70,8 +71,8 @@ const userSlice = createSlice({
             .addCase(deleteItemId.rejected, (state, action) => {
                 state.error = action.error.message
             })
-            ////////// delete users food///////////
-            builder
+        ////////// delete users food///////////
+        builder
             .addCase(deleteUsersfood.pending, (state) => {
                 state.loading = true;
                 state.deleteAction = 'pending delete'
@@ -95,7 +96,17 @@ const userSlice = createSlice({
             .addCase(getUsersFoodData.rejected, (state, action) => {
                 state.error = action.error.message;
             })
-            ///////// firebase post  test /////////
+        ///////// firebase post  test /////////
+        builder
+            .addCase(usersOrder.pending, (state) => {
+                state.loadingOrder = 'pending';
+            })
+            .addCase(usersOrder.fulfilled, (state) => {
+                state.loadingOrder = 'succsess';
+            })
+            .addCase(usersOrder.rejected, (state, action) => {
+                state.error = action.error.message;
+            })
     }
 })
 export const { handleDeleteFood, pushToAllmenuList } = userSlice.actions
