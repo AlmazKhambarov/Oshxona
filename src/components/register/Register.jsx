@@ -1,11 +1,15 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../../Api/firebase";
-import { useDispatch } from "react-redux";
-import { createUserAndProfileAsync } from "../../redux/extraReducer/extraReducer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createUserAndProfileAsync,
+  userRegister,
+} from "../../redux/extraReducer/extraReducer";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const { userSuccsess } = useSelector((state) => state.users);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -15,7 +19,8 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     dispatch(createUserAndProfileAsync({ email, password, userName }));
-  };
+    dispatch(userRegister({ user: userName, foodData: [] }));
+  }
   return (
     <div className="formWrapper">
       <form onSubmit={handleRegister} className="form__group">

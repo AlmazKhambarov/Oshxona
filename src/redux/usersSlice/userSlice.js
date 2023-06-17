@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood, createPost, fetchPosts, usersOrder } from "../extraReducer/extraReducer";
+import { addPost, getAllUsers, deleteItemId, postFoodforUser, getUsersFoodData, deleteUsersfood, createPost, fetchPosts, usersOrder, getuserOrder, createUserAndProfileAsync, getOnlyUser } from "../extraReducer/extraReducer";
 const initialState = {
     usersData: [],
     loading: false,
@@ -8,7 +8,10 @@ const initialState = {
     deleteAction: '',
     postSuccsess: null,
     foodsData: [],
-    loadingOrder:null
+    loadingOrder: null,
+    userOrderFood: [],
+    userSuccsess: null,
+    onlyuser:[]
 }
 const userSlice = createSlice({
     name: "users",
@@ -34,7 +37,28 @@ const userSlice = createSlice({
             .addCase(addPost.rejected, (state, action) => {
                 state.error = action.error.message
             })
+        builder
+            .addCase(createUserAndProfileAsync.pending, (state) => {
+                state.userSuccsess = 'pending'
+            })
+            .addCase(createUserAndProfileAsync.fulfilled, (state, action) => {
+                state.userSuccsess = 'succsess'
+            })
+            .addCase(createUserAndProfileAsync.rejected, (state, action) => {
+                state.error = action.error.message
+            })
         ///////////get users////////
+        builder
+        .addCase(getOnlyUser.pending, (state, action)=>{
+            state.loading = true
+        })
+        .addCase(getOnlyUser.fulfilled, (state, action)=>{
+            state.loading = false;
+            state.onlyuser = action.payload
+        })
+        .addCase(getOnlyUser.rejected, (state, action)=>{
+            state.error =  action.error.message
+        })
         builder
             .addCase(getAllUsers.pending, (state, action) => {
                 state.loading = true;
@@ -106,6 +130,17 @@ const userSlice = createSlice({
             })
             .addCase(usersOrder.rejected, (state, action) => {
                 state.error = action.error.message;
+            })
+        builder
+            .addCase(getuserOrder.pending, (state, action) => {
+                state.loading = true
+            })
+            .addCase(getuserOrder.fulfilled, (state, action) => {
+                state.loading = false;
+                state.userOrderFood = action.payload
+            })
+            .addCase(getuserOrder.rejected, (state, action) => {
+                state.error = action.error.message
             })
     }
 })

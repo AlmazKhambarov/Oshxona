@@ -62,7 +62,12 @@ span{
     font-weight: 700;
     text-transform: uppercase;
 }
+.notification{
 
+}
+.notification span{
+    margin:0px 0px;
+}
 @media screen and(min-width:390px) {
     .food__card__img img{
         width:100;

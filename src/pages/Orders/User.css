@@ -1,0 +1,15 @@
+.food {}
+
+.food_card_image img {
+    width: 20vh
+}
+
+.food_card {
+    display: flex;
+}
+
+.food_card_text {
+    display: flex;
+    flex-direction: column;
+    font-size: 23px;
+}

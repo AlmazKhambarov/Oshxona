@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteUsersfood,
   fetchPosts,
+  getOnlyUser,
   getUsersFoodData,
+  getuserOrder,
   usersOrder,
 } from "../../redux/extraReducer/extraReducer";
 import { useNavigate } from "react-router-dom";
@@ -29,24 +31,40 @@ const style = {
 };
 const UsersPage = ({ user }) => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(0);
   const dispatch = useDispatch();
-  // const [data, setData] = useState()
-  const { loading, foodsData, postSuccsess, deleteAction, loadingOrder } =
-    useSelector((state) => state.users);
+  const [visible, setVisible] = useState(0);
   const [userOrderfood, setUserOrderfood] = useState([]);
   const [open, setOpen] = useState(false);
+  const username = localStorage.getItem("username");
+  const [data, setData] = useState();
+  const {
+    loading,
+    foodsData,
+    postSuccsess,
+    deleteAction,
+    loadingOrder,
+    userOrderFood,
+    onlyuser,
+  } = useSelector((state) => state.users);
+
+  const findUserId = userOrderFood?.find((el) => el.user === username);
+
+  useEffect(() => {
+    if (findUserId) {
+      dispatch(getOnlyUser(findUserId?.id));
+    }
+  }, [findUserId]);
   useEffect(() => {
     dispatch(getUsersFoodData());
   }, [postSuccsess, deleteAction]);
 
   const userOrder = (data) => {
-    console.log(data);
     setUserOrderfood((prev) => [...prev, data]);
   };
 
   const handelLogout = () => {
     auth.signOut();
+    localStorage.clear();
   };
 
   const uniqueIds = new Set();
@@ -57,29 +75,35 @@ const UsersPage = ({ user }) => {
     }
     return false;
   });
-
-  const finalySubmitUserOrderFood = () => {
-    const res = [];
-    var data = updatedArray?.map((el) => {
+  console.log(updatedArray)
+  const finalSubmitUserOrderFood = () => {
+    const updatedData = { ...onlyuser };
+    updatedData.foodData = [];
+    updatedArray?.forEach((el) => {
       let obj = {
         name: el.name,
-        user: user.displayName,
         price: el.price,
         loading: false,
+        image:el.image
       };
-      dispatch(usersOrder(obj));
+      updatedData.foodData.push(obj);
     });
+    dispatch(usersOrder({ id: findUserId?.id, data: updatedData }));
+
   };
+  useEffect(() => {
+    dispatch(getuserOrder());
+  }, []);
+
   useEffect(() => {
     if (loadingOrder) {
       setOpen(false);
       setUserOrderfood([]);
     }
   }, [loadingOrder]);
-  const handleOpen = () => setOpen(true);
 
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // chrome.runtime.sendMessage({ message: "Hello from Chrome extension" });
   return (
     <>
       {loading ? (
@@ -204,14 +228,14 @@ const UsersPage = ({ user }) => {
                             {loadingOrder === "pending" ? (
                               <button
                                 className="btn btn-primary"
-                                onClick={finalySubmitUserOrderFood}
+                                onClick={finalSubmitUserOrderFood}
                               >
                                 загрузка
                               </button>
                             ) : (
                               <button
                                 className="btn btn-primary"
-                                onClick={finalySubmitUserOrderFood}
+                                onClick={finalSubmitUserOrderFood}
                               >
                                 Zakazat
                               </button>

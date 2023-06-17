@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../../Api/firebase";
 import AdminPanel from "../AdminPanel/AdminPanel";
 import { useDispatch, useSelector } from "react-redux";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import testImg from '../../assets/images/img2.jpg'
 import {
   getAllUsers,
   getUsersFoodData,
+  getuserOrder,
   postFoodforUser,
   postObject,
 } from "../../redux/extraReducer/extraReducer";
@@ -16,9 +19,8 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({}) => {
-  const { usersData, loading, postSuccsess, foodsData} = useSelector(
-    (state) => state.users
-  );
+  const { usersData, loading, postSuccsess, foodsData, userOrderFood } =
+    useSelector((state) => state.users);
 
   console.log(usersData);
 
@@ -37,10 +39,11 @@ const Home = ({}) => {
   }, []);
 
   const [user, setUser] = useState();
-
+  console.log(userOrderFood);
   useEffect(() => {
     auth.onAuthStateChanged((user) => setUser(user));
     dispatch(getUsersFoodData());
+    dispatch(getuserOrder());
   }, []);
 
   const getFoodData = (food) => {
@@ -52,7 +55,7 @@ const Home = ({}) => {
     if (data.length > 0) {
       const res = data.filter((el) => el.id !== el.id);
       data.forEach((item) => {
-        console.log(item)
+        console.log(item);
         dispatch(postFoodforUser(item));
       });
     }
@@ -75,22 +78,39 @@ const Home = ({}) => {
 
   const hadlePush = (p) => {
     dispatch(pushToAllmenuList(p));
-    console.log(p);
   };
 
+  var pink = "red";
   return (
     <>
       {loading ? (
         <h1>Загрузка...</h1>
       ) : (
         <div className="home_main_container">
-          <h1><Link to={'/userpage'}>Menu({foodsData?.length})</Link></h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h1>
+              <Link to={"/userpage"}>Menu({foodsData?.length})</Link>
+            </h1>
+            <Link to={'/user-order'}>
+              <p className="notification">
+                <span>{userOrderFood?.length}</span>
+                <NotificationsIcon sx={{ fontSize: 40, color: pink }} />
+              </p>
+            </Link>
+          </div>
           <hr style={{ color: "white" }} />
           <div className="food">
             {usersData?.map((food) => (
               <div className={`food__card `} key={food.id}>
                 <div className="food__card__img">
                   <img className="image" src={food.image} />
+                  
                 </div>
                 <div className="food__card__text">
                   <div>

@@ -32,15 +32,27 @@ export const postFoodforUser = createAsyncThunk('post/foods', async (paylaod) =>
 		url: USERS_API
 	}).then(res => res.data)
 })
+export const userRegister = createAsyncThunk('regsiter/user', async (paylaod) => {
+	return axios({
+		method: "POST",
+		url: USERSORDER,
+		data: paylaod,
+	}).then(res => res.data)
+})
 
 export const getUsersFoodData = createAsyncThunk('get/userFood', async () => {
 	return await axios.get(`${USERS_API}`).then(res => res.data)
 })
 export const usersOrder = createAsyncThunk('users/orders', async (payload) => {
+	return await axios.put(`${USERSORDER}/${payload.id}`, payload.data).then(res=>res.data)
+})
+export const getuserOrder = createAsyncThunk('getorderfood', async () => {
+	return await axios.get(USERSORDER).then(res => res.data)
+})
+export const getOnlyUser = createAsyncThunk('getonly/one/user', async (paylaod) => {
 	return axios({
-		method: "POST",
-		url: USERSORDER,
-		data: payload,
+		method: "GET",
+		url: USERSORDER + '/' + paylaod,
 	}).then(res => res.data)
 })
 export const createUserAndProfileAsync = createAsyncThunk(
