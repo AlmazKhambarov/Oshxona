@@ -13,7 +13,7 @@ import {
   getuserOrder,
   usersOrder,
 } from "../../redux/extraReducer/extraReducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./user.css";
 
 const style = {
@@ -68,14 +68,13 @@ const UsersPage = ({ user }) => {
   };
 
   const uniqueIds = new Set();
-  const updatedArray = userOrderfood?.filter((obj) => {
+  var updatedArray = userOrderfood?.filter((obj) => {
     if (!uniqueIds.has(obj.id)) {
       uniqueIds.add(obj.id);
       return true;
     }
     return false;
   });
-  console.log(updatedArray)
   const finalSubmitUserOrderFood = () => {
     const updatedData = { ...onlyuser };
     updatedData.foodData = [];
@@ -84,12 +83,12 @@ const UsersPage = ({ user }) => {
         name: el.name,
         price: el.price,
         loading: false,
-        image:el.image
+        image: el.image,
       };
       updatedData.foodData.push(obj);
     });
     dispatch(usersOrder({ id: findUserId?.id, data: updatedData }));
-
+    localStorage.removeItem("userorders");
   };
   useEffect(() => {
     dispatch(getuserOrder());
@@ -102,7 +101,17 @@ const UsersPage = ({ user }) => {
     }
   }, [loadingOrder]);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    localStorage.setItem("userorders", JSON.stringify(updatedArray));
+    setOpen(true);
+  };
+  useEffect(() => {
+    var usersorder = JSON.parse(localStorage.getItem("userorders"));
+    if (usersorder) {
+      console.log(usersorder);
+      setUserOrderfood(usersorder);
+    }
+  }, []);
   const handleClose = () => setOpen(false);
   return (
     <>
@@ -111,6 +120,11 @@ const UsersPage = ({ user }) => {
       ) : (
         <>
           <div className="logout">
+            {user ? (
+              user.email !== "admin@gmail.com" ? (
+                <Link className="my_orders_btn" to={'/my-order'}>Мой заказы</Link>
+              ) : null
+            ) : null}
             <button onClick={handelLogout} className="logoutBtn">
               Выйти
             </button>

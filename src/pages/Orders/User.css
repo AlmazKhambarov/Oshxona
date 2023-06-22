@@ -1,15 +1,65 @@
-.food {}
-
-.food_card_image img {
-    width: 20vh
+.user__main a{
+    text-decoration: none;
+}
+.food_card img {
+    margin: 7px;
+    width: 50%;
+    border-radius: 18%;
 }
 
 .food_card {
     display: flex;
+    border: 1px solid white;
+    border-radius: 15px;
+    margin: 5px;
+    /* height: 100px; */
 }
-
+.food_texts{
+    display: flex;
+    flex-direction: column;
+}
+.food_texts span{
+  font-size: 20px;
+}
 .food_card_text {
     display: flex;
     flex-direction: column;
     font-size: 23px;
+}
+.food_card_price{
+    text-align: end;
+}
+.food_card_text span{
+    font-size: 14px;
+}
+.food_card_text .food_texts span{
+    font-size: 20px;
+}
+.select_option{
+    display: flex;
+}
+.select_option button{
+    width: 100%;
+    border-radius: 8px;
+    padding: 8px 0px; 
+    color: #f1f1f1;
+    font-size: 18px;
+    
+}
+/* .select_option .err{
+    background-color: red;
+}
+.select_option .done{
+    background-color: blue;
+} */
+.user_name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user_name span{
+    font-size: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Times New Roman', Times, serif;
 }

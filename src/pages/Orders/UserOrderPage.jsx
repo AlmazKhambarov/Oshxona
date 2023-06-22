@@ -11,21 +11,22 @@ const UserOrderPage = ({ user }) => {
   const { userOrderFood, loadingOrder } = useSelector((state) => state.users);
   useEffect(() => {
     dispatch(getuserOrder());
-  }, []);
+  }, [])
   const getId = (id) => {
     localStorage.setItem("useruid", id);
   };
-  console.log(loadingOrder);
+  // userOrderFood.forEach((el) => {
+  //   if(el.foodData.length>0){
+  //     return console.log(el.foodData)
+  //   }
+  // })
+console.log(userOrderFood)
   return (
-    <div>
+    <div className="foods">
       {userOrderFood?.map((el) => (
         <div className="user__box__main">
           <a href={`/user-order/${el.id}`} onClick={() => getId(el.id)}>
-            <p className="user__box">
-              {el.user}
-              {el.foodData.length}
-              {/* <img src={el.image} alt="#"/> */}
-            </p>
+            <p className="user__box">{el.id}  {el.user}</p>
           </a>
         </div>
       ))}

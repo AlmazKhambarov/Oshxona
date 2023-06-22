@@ -7,6 +7,7 @@ import { auth } from '../Api/firebase'
 import UsersPage from '../pages/usersPage/UsersPage'
 import UserOrderPage from '../pages/Orders/UserOrderPage'
 import User from '../pages/Orders/User'
+import MyOrder from '../pages/MyOrder/MyOrder'
 
 const Router = () => {
   const [user, setUser] = useState()
@@ -32,10 +33,11 @@ const Router = () => {
       <Route path='/register' element={user ? (user.emai === 'admin@gmail.com' ? <Home /> : <UsersPage />) : <Register />} />
       <Route path='/user-order' element={<UserOrderPage user={user} />} />
       <Route path='/user-order/:id' element={<User user={user} />} />
+      <Route path='/my-order' element={<MyOrder/>}/>
     </Routes>
   )
 }
 
 export default Router
 //1 - hRciYJVvH6g5jDch4O2apymY4KC3
-//2 -hRciYJVvH6g5jDch4O2apymY4KC3 
+//2 -hRciYJVvH6g5jDch4O2apymY4KC3  
