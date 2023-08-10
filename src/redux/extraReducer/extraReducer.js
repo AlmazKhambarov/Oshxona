@@ -44,7 +44,8 @@ export const getUsersFoodData = createAsyncThunk('get/userFood', async () => {
 	return await axios.get(`${USERS_API}`).then(res => res.data)
 })
 export const usersOrder = createAsyncThunk('users/orders', async (payload) => {
-	return await axios.put(`${USERSORDER}/${payload.id}`, payload.data).then(res=>res.data)
+	console.log(payload.data)
+	return await axios.put(`${USERSORDER}/${payload.id}`, payload.data).then(res => res.data)
 })
 export const getuserOrder = createAsyncThunk('getorderfood', async () => {
 	return await axios.get(USERSORDER).then(res => res.data)

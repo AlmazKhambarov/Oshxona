@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Myorder.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import NotInterestedIcon from "@mui/icons-material/NotInterested";
+
 import { useNavigate } from "react-router-dom";
 const MyOrder = () => {
   const { userOrderFood } = useSelector((state) => state.users);
@@ -37,12 +39,14 @@ const MyOrder = () => {
               <span>{food.price}.000 сум</span>
             </div>
             <div>
-              {food.loading ? (
-                <span className="done">
-                  Принято <CheckCircleOutlineIcon />
+              {food.loading === 'reject' ? (
+                <span className="failure">
+                  Отклонено
                 </span>
-              ) : food.loading === "rejected" ? (
-                <span></span>
+              ) : food.loading ? (
+                <span className="done">
+                <CheckCircleOutlineIcon />
+             </span>
               ) : (
                 <span className="loading">
                   Ожидания

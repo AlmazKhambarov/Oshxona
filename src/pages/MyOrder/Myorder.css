@@ -21,6 +21,10 @@
 font-size: 20px;
 color:green
 }
+.foodsss .failure{
+  font-size: 20px;
+  color:red;
+  }
 .foodsss .loading{
 font-size: 20px;
 color:red;

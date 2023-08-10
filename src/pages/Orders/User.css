@@ -63,3 +63,19 @@
     text-transform: uppercase;
     font-family: 'Times New Roman', Times, serif;
 }
+.foodsss .doneIcon{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-left: 70px;
+    color:green;
+
+}
+.foodsss .doneIcons{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    /* padding-left: 70px; */
+    color:red;
+
+}

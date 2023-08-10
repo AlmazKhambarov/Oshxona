@@ -36,7 +36,7 @@
 
 .none {
     visibility: hidden;
-    transform: translateY(-30px) scale(0);
+    /* transform: translateY(-30px) scale(0); */
     transition: 0.3s;
     opacity: 0;
     margin-top: -50px;

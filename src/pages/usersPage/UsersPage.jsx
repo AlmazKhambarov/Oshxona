@@ -112,6 +112,13 @@ const UsersPage = ({ user }) => {
       setUserOrderfood(usersorder);
     }
   }, []);
+  const datass = [
+    {name:"alamz", id:1},
+    {name:"cfijdi", id:2},
+    {name:"du", id:3},
+    {name:"vhdgfuhy", id:4},
+
+  ]
   const handleClose = () => setOpen(false);
   return (
     <>
@@ -162,7 +169,7 @@ const UsersPage = ({ user }) => {
                         visible === food.id ? "active" : "none"
                       } userButton`}
                     >
-                      заказать
+                      Заказать
                     </button>
                   ) : null
                 ) : null}
@@ -195,7 +202,7 @@ const UsersPage = ({ user }) => {
                 {updatedArray.length > 0 ? (
                   <>
                     <div className="seeOrder__container">
-                      <button onClick={handleOpen}>Moy Zakaz</button>
+                      <button onClick={handleOpen}>Отправить</button>
                       <Modal
                         open={open}
                         onClose={handleClose}

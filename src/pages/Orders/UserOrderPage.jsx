@@ -5,28 +5,33 @@ import {
   usersOrder,
 } from "../../redux/extraReducer/extraReducer";
 import { Link } from "react-router-dom";
+import WestIcon from "@mui/icons-material/West";
 import "./UserOrderPage.css";
 const UserOrderPage = ({ user }) => {
   const dispatch = useDispatch();
   const { userOrderFood, loadingOrder } = useSelector((state) => state.users);
   useEffect(() => {
     dispatch(getuserOrder());
-  }, [])
+  }, []);
   const getId = (id) => {
     localStorage.setItem("useruid", id);
   };
-  // userOrderFood.forEach((el) => {
-  //   if(el.foodData.length>0){
-  //     return console.log(el.foodData)
-  //   }
-  // })
-console.log(userOrderFood)
+
   return (
     <div className="foods">
+      <Link to={"/"}>
+        <WestIcon />
+      </Link>
       {userOrderFood?.map((el) => (
         <div className="user__box__main">
           <a href={`/user-order/${el.id}`} onClick={() => getId(el.id)}>
-            <p className="user__box">{el.id}  {el.user}</p>
+            <p className="user__box">
+              {el.foodData.length > 1 ? (
+                <span>
+                  {el.id} {el.user}
+                </span>
+              ) : null}
+            </p>
           </a>
         </div>
       ))}
