@@ -26,7 +26,7 @@ const UserOrderPage = ({ user }) => {
         <div className="user__box__main">
           <a href={`/user-order/${el.id}`} onClick={() => getId(el.id)}>
             <p className="user__box">
-              {el.foodData.length > 1 ? (
+              {el.foodData.length >= 1 ? (
                 <span>
                   {el.id} {el.user}
                 </span>
